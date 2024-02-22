@@ -1,0 +1,124 @@
+@property --deg {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --neg-deg {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --grad-color {
+  syntax: "<color>";
+  initial-value: hsl(300 74.2% 48.6%);
+  inherits: false;
+}
+
+@property --grad-colorT {
+  syntax: "<color>";
+  initial-value: hsl(150.2,83%,59.1%);
+  inherits: false;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-content: center;
+  gap: 5rem;
+  min-height: 100svh;
+  font-size: 1rem;
+  background: black;
+}
+
+button.btn1 {
+  padding-block: 1rem;
+  padding-inline: 2rem;
+  
+  border: 5px solid transparent;
+  border-radius: 20px;
+  background: linear-gradient(black, black) padding-box,
+    conic-gradient(from var(--deg),
+      transparent, transparent, transparent,
+      var(--grad-color), var(--grad-color),
+      transparent, transparent, transparent) border-box;
+  animation: btn 3s linear infinite;
+  position: relative;
+}
+
+button.btn2 {
+  padding-block: 1rem;
+  padding-inline: 2rem;
+  
+  border: 5px solid transparent;
+  border-radius: 20px;
+  background: linear-gradient(black, black) padding-box,
+    conic-gradient(from var(--neg-deg),
+      transparent, transparent, transparent,
+      var(--grad-color), var(--grad-color),
+      transparent, transparent, transparent) border-box;
+  animation: btn 3s linear infinite;
+  position: relative;
+}
+
+
+button .span1 {
+  background:
+  conic-gradient(from var(--deg),
+      transparent, transparent, transparent,
+      var(--grad-color), var(--grad-color),
+      transparent, transparent, transparent) border-box;
+  background-clip: text;
+  color: transparent;
+  animation: btn 3s linear infinite;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.btn2::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  z-index: -1;
+  background: linear-gradient(transparent, transparent) padding-box,
+      conic-gradient(from var(--neg-deg),
+      transparent, transparent, transparent,
+      var(--grad-color), var(--grad-color),
+      transparent, transparent, transparent) border-box;
+  border-radius: 20px;
+  border: 5px solid transparent;
+  filter: blur(50px);
+  animation: btn 3s linear infinite;
+}
+
+.btn2 .span2 {
+  background: linear-gradient(
+      var(--grad-colorT), var(--grad-colorT)) border-box;
+  background-clip: text;
+  color: transparent;
+  animation: btn 3s linear infinite;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+@keyframes btn {
+  0% {
+    --deg: 0deg;
+    --neg-deg: 0deg;
+    --grad-color: hsl(var(--deg) 74.2% 50%);
+    --grad-colorT: hsl( calc(var(--deg) * 1) 83% 59.1%);
+  }
+  
+  100% {
+    --deg: 360deg;
+    --neg-deg: -360deg;
+    --grad-color: hsl( var(--deg) 74.2% 50%);
+    --grad-colorT: hsl( calc(var(--deg) * 1) 83% 59.1%);
+  }
+}
